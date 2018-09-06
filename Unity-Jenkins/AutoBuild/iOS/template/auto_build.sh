@@ -29,7 +29,7 @@ exportIPAPath="./ios_ipa/${currentTime}"
 echo "exportIPAPath=${exportIPAPath}"
 
 #ssh 访问密钥串
-security unlock-keychain "-p" "2144123456" "/Users/2144hz/Library/Keychains/login.keychain"
+security unlock-keychain "-p" "123456" "/Users/root/Library/Keychains/login.keychain"
 
 autoBuild() {
 
