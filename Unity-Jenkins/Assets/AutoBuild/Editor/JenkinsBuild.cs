@@ -20,7 +20,7 @@ public class JenkinsBuild
         int.TryParse(GetParam(args, "version=", "0"), out version);
     }
 
-    static string GetParam(string[] args, string param, string defaultValue)
+    public static string GetParam(string[] args, string param, string defaultValue)
     {
         string tmpValue = defaultValue;
         for (int i = 0; i < args.Length; i++)
