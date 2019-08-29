@@ -1,0 +1,16 @@
+{
+    "Capability":
+    [
+        "InAppPurchase",
+        "PushNotifications"
+    ],
+    "system_framework":
+    {
+        "WebKit.framework":true,
+        "GameKit.framework":false
+    },
+    "sdk_framework":
+    {
+
+    }
+}
