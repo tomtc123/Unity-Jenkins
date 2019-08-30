@@ -5,6 +5,7 @@
     "AppIconSetPath":"SDK/AppIcon.appiconset",
     "Capability":
     [
+        "GameCenter",
         "InAppPurchase",
         "PushNotifications"
     ],

@@ -53,24 +53,28 @@ public class BuildIOS
         //2 Capabilities
         if (settings.Capability != null)
         {
-            var bundleIdLastIndex = settings.BundleIdentifier.LastIndexOf('.') + 1;
-            var entitlementName = string.Format("{0}.entitlements", settings.BundleIdentifier.Substring(bundleIdLastIndex));
-            var capManager = new ProjectCapabilityManager(projPath, entitlementName, PBXProject.GetUnityTargetName());
             foreach (var name in settings.Capability)
             {
                 switch (name)
                 {
-                    case "PushNotifications":
-                        capManager.AddPushNotifications(true);
+                    case "GameCenter":
+                        proj.AddCapability(target, PBXCapabilityType.GameCenter);
                         break;
                     case "InAppPurchase":
-                        capManager.AddInAppPurchase();
+                        proj.AddCapability(target, PBXCapabilityType.InAppPurchase);
+                        break;
+                    case "PushNotifications":
+                        proj.AddCapability(target, PBXCapabilityType.PushNotifications);
+                        var bundleIdLastIndex = settings.BundleIdentifier.LastIndexOf('.') + 1;
+                        var entitlementName = string.Format("{0}.entitlements", settings.BundleIdentifier.Substring(bundleIdLastIndex));
+                        var capManager = new ProjectCapabilityManager(projPath, entitlementName, PBXProject.GetUnityTargetName());
+                        capManager.AddPushNotifications(true);
+                        capManager.WriteToFile();
+                        File.Copy(Path.Combine(pathToBuiltProject, entitlementName), Path.Combine(pathToBuiltProject, "Unity-iPhone", entitlementName), true);
                         break;
                     default: break;
                 }
             }
-            capManager.WriteToFile();
-            File.Copy(Path.Combine(pathToBuiltProject, entitlementName), Path.Combine(pathToBuiltProject, "Unity-iPhone", entitlementName), true);
         }
 
         //3 Info(Info.plist)
@@ -161,7 +165,13 @@ public class BuildIOS
     {
         var path = Path.Combine(Application.dataPath.Replace("Assets", ""), "iOSBuild");
         if (Directory.Exists(path))
+        {
             ProcessPBXProject(path);
+        }
+        else
+        {
+            Debug.LogErrorFormat("Path:{0}, is empty", path);
+        }
     }
 
     [System.Serializable]
@@ -188,12 +198,6 @@ public class BuildIOS
             Debug.LogFormat("[BuildIOS] SDKFiles:{0}", item);
         }
         return options;
-    }
-
-    [MenuItem("iOS/TestCleanProcessSDKFile")]
-    public static void TestCleanProcessSDKFile()
-    {
-        ProcessSDKFile(true);
     }
 
 }
