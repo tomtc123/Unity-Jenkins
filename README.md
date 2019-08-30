@@ -59,17 +59,18 @@ iOSBuildOptions.json注释说明:
 
 ### 3. 修改Info.plist
 修改权限说明:
-NSContactsUsageDescription -> 通讯录
 
-NSMicrophoneUsageDescription -> 麦克风
+`NSContactsUsageDescription` -> 通讯录
 
-NSPhotoLibraryUsageDescription -> 相册
+`NSMicrophoneUsageDescription` -> 麦克风
 
-NSCameraUsageDescription -> 相机
+`NSPhotoLibraryUsageDescription` -> 相册
 
-NSLocationAlwaysUsageDescription -> 地理位置
+`NSCameraUsageDescription` -> 相机
 
-NSLocationWhenInUseUsageDescription -> 地理位置
+`NSLocationAlwaysUsageDescription` -> 地理位置
+
+`NSLocationWhenInUseUsageDescription` -> 地理位置
 
 ### 4. Build Settings
 ```c#
