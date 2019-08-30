@@ -1,0 +1,23 @@
+{
+    "DisplayName":"测试名称",
+    "BundleIdentifier":"com.game.test",
+    "Version":"0.0.1",
+    "AppIconSetPath":"SDK/AppIcon.appiconset",
+    "Capability":
+    [
+        "InAppPurchase",
+        "PushNotifications"
+    ],
+    "SystemFiles":
+    [
+        "WebKit.framework",
+        "GameKit.framework",
+        "StoreKit.framework",
+        "libc++.tbd"
+    ],
+    "SDKFiles":
+    [
+        "SDK/BuglySDK/iOS",
+        "SDK/BuglyBridge/iOS"
+    ]
+}
