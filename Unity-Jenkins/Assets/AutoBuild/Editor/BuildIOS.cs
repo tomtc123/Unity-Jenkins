@@ -29,11 +29,6 @@ public class BuildIOS
 
         var settings = GetiOSBuildOptions();
 
-        //1 General
-        PlayerSettings.productName = settings.DisplayName;
-        PlayerSettings.applicationIdentifier = settings.BundleIdentifier;
-        PlayerSettings.bundleVersion = settings.Version;
-
         //1.1 framework && lib
         if (settings.SystemFiles != null)
         {
@@ -109,6 +104,15 @@ public class BuildIOS
         proj.WriteToFile(projPath);
     }
 
+    static void GeneralSetting()
+    {
+        var settings = GetiOSBuildOptions();
+        //1 General
+        PlayerSettings.productName = settings.DisplayName;
+        PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, settings.BundleIdentifier);
+        PlayerSettings.bundleVersion = settings.Version;
+    }
+
     static void ProcessSDKFile(bool clean)
     {
         var unityProjPath = Application.dataPath.Replace("Assets", "");
@@ -142,6 +146,8 @@ public class BuildIOS
     [MenuItem("iOS/BuildProject")]
     public static void BuildIOSProject()
     {
+        GeneralSetting();
+
         ProcessSDKFile(false);
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
         List<string> scenes = new List<string>();
