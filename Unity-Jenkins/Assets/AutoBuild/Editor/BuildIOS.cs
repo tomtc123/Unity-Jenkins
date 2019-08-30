@@ -41,6 +41,7 @@ public class BuildIOS
                 else
                 {
                     var fileGuid = proj.AddFile("usr/lib/" + fileName, "Frameworks/" + fileName, PBXSourceTree.Sdk);
+                    proj.AddFileToBuild(target, fileGuid);
                 }
             }
         }
