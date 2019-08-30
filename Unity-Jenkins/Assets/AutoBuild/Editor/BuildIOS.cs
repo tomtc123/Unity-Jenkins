@@ -55,7 +55,6 @@ public class BuildIOS
         {
             var bundleIdLastIndex = settings.BundleIdentifier.LastIndexOf('.') + 1;
             var entitlementName = string.Format("{0}.entitlements", settings.BundleIdentifier.Substring(bundleIdLastIndex));
-            var tempPath = Path.GetTempPath();
             var capManager = new ProjectCapabilityManager(projPath, entitlementName, PBXProject.GetUnityTargetName());
             foreach (var name in settings.Capability)
             {
@@ -71,7 +70,7 @@ public class BuildIOS
                 }
             }
             capManager.WriteToFile();
-            File.Copy(Path.Combine(pathToBuiltProject, entitlementName), Path.Combine(pathToBuiltProject, "Unity-iPhone", entitlementName));
+            File.Copy(Path.Combine(pathToBuiltProject, entitlementName), Path.Combine(pathToBuiltProject, "Unity-iPhone", entitlementName), true);
         }
 
         //3 Info(Info.plist)
@@ -93,46 +92,17 @@ public class BuildIOS
         // 6 appiconset
         if (!string.IsNullOrEmpty(settings.AppIconSetPath))
         {
-            string destPath = pathToBuiltProject + "/Unity-iPhone/Images.xcassets/AppIcon.appiconset/";
+            string dstPath = pathToBuiltProject + "/Unity-iPhone/Images.xcassets/AppIcon.appiconset/";
             string srcPath = Path.Combine(unityProjPath, settings.AppIconSetPath);
-            CopyAndReplaceDirectory(srcPath, destPath);
+            foreach (var file in Directory.GetFiles(srcPath))
+            {
+                var to = Path.Combine(dstPath, Path.GetFileName(file));
+                File.Copy(file, to, true);
+            }
         }
 
         // Save PBXProject
         proj.WriteToFile(projPath);
-    }
-
-    static void AddDirectoryToBuild(PBXProject proj, string target, string pathToBuiltProject, string path)
-    {
-        foreach (string filePath in Directory.GetFiles(path))
-        {
-            if (!filePath.EndsWith(".DS_Store"))
-            {
-                var tmpPath = filePath.Replace(pathToBuiltProject, "");
-                string fileGuid = proj.AddFile(tmpPath, tmpPath, PBXSourceTree.Source);
-                proj.AddFileToBuild(target, fileGuid);
-                Debug.LogFormat("[BuildIOS] AddDirectoryToBuild(): {0}", tmpPath);
-            }
-        }
-    }
-
-    static void CopyAndReplaceDirectory(string srcPath, string dstPath)
-    {
-        foreach (var file in Directory.GetFiles(srcPath))
-        {
-            var to = Path.Combine(dstPath, Path.GetFileName(file));
-            Debug.LogFormat("[BuildIOS] Copy File From:{0}, To:{1}", file, to);
-            if (!Directory.Exists(dstPath))
-            {
-                Directory.CreateDirectory(dstPath);
-            }
-            File.Copy(file, to, true);
-        }
-
-        foreach (var dir in Directory.GetDirectories(srcPath))
-        {
-            CopyAndReplaceDirectory(dir, Path.Combine(dstPath, Path.GetFileName(dir)));
-        }
     }
 
     static void ProcessSDKFile(bool clean)
@@ -218,6 +188,12 @@ public class BuildIOS
             Debug.LogFormat("[BuildIOS] SDKFiles:{0}", item);
         }
         return options;
+    }
+
+    [MenuItem("iOS/TestCleanProcessSDKFile")]
+    public static void TestCleanProcessSDKFile()
+    {
+        ProcessSDKFile(true);
     }
 
 }

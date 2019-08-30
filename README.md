@@ -2,6 +2,10 @@
 Unity3d with Jenkins
 
 ## iOS导出设置
+**使用方法：**
+点击 `iOS/BuildProject` 菜单导出XCode工程。
+
+////
 iOSBuildOptions.json注释说明:
 ```json
 {
@@ -29,7 +33,7 @@ iOSBuildOptions.json注释说明:
 }
 ```
 ### 1. 基本设置(General)
-设置游戏名称，包名，版本等；添加系统framework或library(`urs/lib/[libraryname]`)到 `[XCodeRootPath]/Frameworks/`目录下
+设置游戏名称，包名，版本等；添加系统framework和library(`urs/lib/[libraryname]`)到 `[XCodeRootPath]/Frameworks/`目录下
 
 **注意:** 第三方SDK文件(*.h,*.a,*.framework,*.mm)比较多，简单处理过程是：执行BuildPipeline.BuildPlayer前把第三方SDK文件拷贝到`Assets/Plugins/iOS/`目录下让Unity自动把sdk文件添加到xcode工程，导出xcode工程后删除该路径还原工程。
 
