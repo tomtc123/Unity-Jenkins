@@ -14,7 +14,11 @@
         "WebKit.framework",
         "GameKit.framework",
         "StoreKit.framework",
-        "libc++.tbd"
+        "SystemConfiguration.framework",
+        "Security.framework",
+        "JavaScriptCore.framework",
+        "libc++.tbd",
+        "libz.tbd"
     ],
     "SDKFiles":
     [
