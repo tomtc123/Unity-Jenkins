@@ -148,7 +148,6 @@ public class BuildIOS
     public static void BuildIOSProject()
     {
         GeneralSetting();
-
         ProcessSDKFile(false);
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
         List<string> scenes = new List<string>();
@@ -162,6 +161,7 @@ public class BuildIOS
         buildPlayerOptions.scenes = scenes.ToArray();
         buildPlayerOptions.locationPathName = "iOSBuild";
         buildPlayerOptions.target = BuildTarget.iOS;
+        PlayerSettings.iOS.targetOSVersionString = GetiOSBuildOptions().TargetOSVersion;
         PlayerSettings.SetScriptingBackend(BuildTargetGroup.iOS, ScriptingImplementation.IL2CPP);
         BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
         ProcessSDKFile(true);
@@ -186,6 +186,7 @@ public class BuildIOS
         public string DisplayName;
         public string BundleIdentifier;
         public string Version;
+        public string TargetOSVersion;
         public string AppIconSetPath;
         public string[] Capability;
         public string[] SystemFiles;

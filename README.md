@@ -37,6 +37,11 @@ iOSBuildOptions.json注释说明:
 
 **注意:** 第三方SDK文件(*.h,*.a,*.framework,*.mm)比较多，简单处理过程是：执行BuildPipeline.BuildPlayer前把第三方SDK文件拷贝到`Assets/Plugins/iOS/`目录下让Unity自动把sdk文件添加到xcode工程，导出xcode工程后删除该路径还原工程。
 
+如果是手动添加framework到工程，需要追加设置：
+```c#
+proj.AddBuildProperty(target, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/Frameworks");
+```
+
 ### 2. Capabilities
 ```c#
         public void AddAccessWiFiInformation();

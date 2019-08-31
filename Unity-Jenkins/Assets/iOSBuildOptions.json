@@ -2,6 +2,7 @@
     "DisplayName":"测试名称",
     "BundleIdentifier":"com.game.test",
     "Version":"0.0.1",
+    "TargetOSVersion":"9.0",
     "AppIconSetPath":"SDK/AppIcon.appiconset",
     "Capability":
     [
