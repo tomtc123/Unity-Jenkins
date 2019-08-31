@@ -32,6 +32,9 @@ iOSBuildOptions.json注释说明:
     ]
 }
 ```
+### tbd定义
+tbd:**Text-Based Dynamic Librayr Definition**
+
 ### 1. 基本设置(General)
 设置游戏名称，包名，版本等；添加系统framework和library(`urs/lib/[libraryname]`)到 `[XCodeRootPath]/Frameworks/`目录下
 
